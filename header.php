@@ -55,9 +55,8 @@ $user->setup('viewforum');
 						<li><a href="/">Home</a></li>
 						<li><a href="/board/index.php">Forum</a></li>
 						<li><a href="/playnow.php">Play Now</a></li>
-						<li><a href="/clans.php">Clans</a></li>
+                                                <li><a href="/database.php">Game Database</a></li>
 						<li><a href="/highscores.php">Highscores</a></li>
-						<li><a href="/media.php">Media</a></li>
 					</ul>
 				</div>
 				<div class="account-panel">
