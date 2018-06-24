@@ -1,7 +1,7 @@
 /nbproject/private/
 /OLD/nbproject/private/
 /OLD/
-/cache/production/*.php
-/cache/production/*.php.lock
-/cache/production/*.php.meta
-/cache/production/twig/
+/board/cache/production/*.php
+/board/cache/production/*.php.lock
+/board/cache/production/*.php.meta
+/board/cache/production/twig/
