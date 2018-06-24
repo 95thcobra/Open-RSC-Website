@@ -151,93 +151,6 @@
                                         }
                                 }	
                         break;
-                        /*case "reduction":
-                                if($view_page == 'select' && isset($curr_char) && isset($_POST['stat_reset']))
-                                {
-                                        confirm_referrer('char_manager.php');	
-
-                                        if($curr_char != $apply_char['id'] && $luna_user['g_id'] != LUNA_ADMIN) 
-                                                redirect('char_manager.php?id='.$id);
-
-                                        $stat_char = $db->query(
-                                        "SELECT " . GAME_BASE . "players.id, " . GAME_BASE . "players.owner," . GAME_BASE . "players.online, " . GAME_BASE . "experience.exp_attack, 
-                                        " . GAME_BASE . "experience.exp_defense, " . GAME_BASE . "experience.exp_strength, " . GAME_BASE . "experience.exp_hits, 
-                                        " . GAME_BASE . "experience.exp_prayer, " . GAME_BASE . "experience.exp_ranged, " . GAME_BASE . "experience.exp_magic 
-                                        FROM " . GAME_BASE . "players JOIN " . GAME_BASE . "experience ON " . GAME_BASE . "players.id = " . GAME_BASE . "experience.user  WHERE " . GAME_BASE . "players.id = '" . $db->escape($curr_char) . "' AND " . GAME_BASE . "players.owner = '" . $id . "'"
-                                        );
-
-                                        if($db->num_rows($stat_char) > 0) 
-                                        {
-                                                $grab_char = $db->fetch_assoc($stat_char);
-                                                if($grab_char['online'] == 0) 
-                                                {
-                                                        //$payment = $db->query("SELECT id FROM " . GAME_BASE . "invitems WHERE user = '" . $db->escape($grab_char['id']) . "' AND id IN (2092, 2094)");
-                                                        //if($db->num_rows($payment) > 0)
-                                                        //{
-                                                                if(isset($_POST['reset_stat'])) 
-                                                                {
-                                                                        $rehash_inputs = explode("," , $_POST['reset_stat']);
-                                                                        if($validskills[$rehash_inputs[0]]['name'] == $rehash_inputs[1] && $validskills[$rehash_inputs[0]]['modify'] == true) 
-                                                                        {
-                                                                                if($grab_char['exp_' . $rehash_inputs[1]] == 0) 
-                                                                                {
-                                                                                                $errors[] = "This skill is already lower than the limit";
-                                                                                } 
-                                                                                else 
-                                                                                {
-                                                                                        $max_stat_exp = 4469;
-                                                                                        switch($rehash_inputs[1]) 
-                                                                                        {
-                                                                                        case "strength":
-                                                                                                case "attack":	
-                                                                                                case "defense":
-                                                                                                        if($rehash_inputs[1] == 'strength' && $grab_char['exp_strength'] > $max_stat_exp || $rehash_inputs[1] == 'attack' && $grab_char['exp_attack'] > $max_stat_exp || $rehash_inputs[1] == 'defense' && $grab_char['exp_defense'] > $max_stat_exp) 
-                                                                                                        {
-                                                                                                                $errors[] = "Sorry, but you cannot reset your " . $rehash_inputs[1] . " above level " . experience_to_level($max_stat_exp) . ".";
-                                                                                                        } 
-                                                                                                        else 
-                                                                                                        {
-                                                                                                                if($rehash_inputs[1] == 'attack') {
-                                                                                                                        $auto_calc_hits = ceil(($grab_char['exp_defense'] + $grab_char['exp_strength']) / 3) + 1154;
-                                                                                                                } 
-                                                                                                                else if($rehash_inputs[1] == 'defense') {
-                                                                                                                        $auto_calc_hits = ceil(($grab_char['exp_attack'] + $grab_char['exp_strength']) / 3) + 1154;
-                                                                                                                } 
-                                                                                                                else if($rehash_inputs[1] == 'strength'){
-                                                                                                                        $auto_calc_hits = ceil(($grab_char['exp_attack'] + $grab_char['exp_defense']) / 3) + 1154;
-                                                                                                                }
-                                                                                                                $convert_calc_hits = experience_to_level($auto_calc_hits);
-                                                                                                                $db->query("UPDATE " . GAME_BASE . "experience SET exp_hits = '" . $db->escape($auto_calc_hits)  . "', exp_" . $db->escape($rehash_inputs[1]) . " = '0' WHERE user = '" . $db->escape($grab_char['id']) . "'");
-                                                                                                                $db->query("UPDATE " . GAME_BASE . "curstats SET cur_hits = '" . $db->escape($convert_calc_hits) . "', cur_" . $db->escape($rehash_inputs[1]) . " = '1' WHERE user = '" . $db->escape($grab_char['id']) . "'");
-                                                                                                                // Delete the sub card from inventory
-                                                                                                                //$db->query("DELETE FROM " . GAME_BASE . "invitems WHERE user = '" . $db->escape($grab_char['id']) . "' AND id IN (2092, 2094) LIMIT 1");
-                                                                                                                redirect('char_manager.php?id='.$id.'&setting=reduction&saved=true');
-                                                                                                        }
-                                                                                                break;
-                                                                                                default:
-                                                                                                         $db->query("UPDATE " . GAME_BASE . "experience SET exp_" . $db->escape($rehash_inputs[1]) . " = '0' WHERE user = '" . $db->escape($grab_char['id']) . "'");
-                                                                                                         $db->query("UPDATE " . GAME_BASE . "curstats SET cur_" . $db->escape($rehash_inputs[1]) . " = '1' WHERE user = '" . $db->escape($grab_char['id']) . "'");	
-                                                                                                         // Delete the sub card from inventory
-                                                                                                         //$db->query("DELETE FROM " . GAME_BASE . "invitems WHERE user = '" . $grab_char['id'] . "' AND id IN (2092, 2094) LIMIT 1");
-                                                                                                         redirect('char_manager.php?id='.$id.'&setting=reduction&saved=true');
-                                                                                                break;
-                                                                                        }
-                                                                                }
-                                                                        }
-                                                                }
-
-                                                }
-                                                else 
-                                                {
-                                                        $errors[] = "You need to stay offline in-game to use this feature.";
-                                                }
-                                        } 
-                                        else 
-                                        {
-                                                $errors[] = "This character does not belong to you.";
-                                        }
-                                }
-                        break;*/
                         case "character_renaming":
                                 if($view_page == 'select' && isset($_POST['character_rename']))
                                 {
@@ -476,7 +389,7 @@
                         { 
                                 if($isActive) 
                                 {
-                                        require load_page('character/active-character.php');
+                                        require load_page('inc/character/active-character.php');
                                         switch($setting) 
                                         {
                                                 case "change_password":
@@ -501,12 +414,12 @@
                                 } 
                                 else 
                                 {
-                                        require load_page('character/select-character.php'); 
+                                        require load_page('inc/character/select-character.php'); 
                                 }
                         } 
                         else if($view_page == 'create') 
                         { 
-                                require load_page('character/create-character.php');
+                                require load_page('inc/character/create-character.php');
                         }
                         else 
                         { 
