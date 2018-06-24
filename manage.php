@@ -1,5 +1,18 @@
 <?php
     include 'header.php';
-    include 'manage_core.php';
+
+?>
+
+<div class="main">
+        <div class="content">
+                <article>
+                <?php
+                
+                ?>
+                </article>
+        </div>
+</div>
+    
+<?php
     include 'footer.php';
 ?>
