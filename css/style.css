@@ -226,15 +226,15 @@ header {
 
 article {
 	background: #201B18;
-	width: 630px;
+	width: 705px;
 	padding:10px;
 	float:left;
 }
 
 aside{
 	float:right;
-	width:316px;
-	margin:20px 0px;
+	width:170px;
+	margin:37px 0px;
 }
 
 p {
@@ -357,8 +357,8 @@ p {
 }
 
 #data, #create, #pass, #delete, #error {
-	width:300px;
-        height:285px;
+	width:200px;
+        height:150px;
 	padding:10px;
 	background:rgba(32,27,24,1);
 }

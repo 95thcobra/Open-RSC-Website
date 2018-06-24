@@ -32,7 +32,6 @@ require 'inc/db.php';
 $user->session_begin();
 $auth->acl($user->data);
 $user->setup('viewforum'); 
-
 ?>
 
 <!doctype html>
@@ -46,7 +45,9 @@ $user->setup('viewforum');
         <body lang="en">
 
 		<header>
-                    <div class="large"><img src="/css/images/logo.png" /></div>
+                        <div class="large">
+                                <img src="/css/images/logo.png" />
+                        </div>
 		</header>
 		<div class="body-wrapper">	
 			<div class="navigation">
@@ -77,88 +78,39 @@ $user->setup('viewforum');
                                         } else { 
                                         ?>
                                                 <aside>
-                                                    <div class="box">
-                                                            <div id="data">
-								<h4>Login Module</h4>
-								<p>Use the form below to login!</p>
-                                                                <form method="post" action="/board/ucp.php?mode=login">
-								<label for="loginname">Username: </label><input type="text" name="username" class="name" id="loginname"/>
-								<label for="loginpass">Password: </label><input type="password" name="password" class="password" id="loginpass"/>
-								<input type="hidden" checked="yes" name="autologin" class="autologin"  id="autologin"/>
-								<input type="submit" value="Log In" name="login" class="submit"/>
-								<input type="hidden" name="redirect" value="/index.php" />
-								</form> 
-								<a class="submit" href="/board/ucp.php?mode=register">Register</a> 
-                                                            </div>
-                                                    </div>
-                                                    <div clas="box">
-                                                            <div class="panel-heading">
-                                                                    <h4 class="panel-title"><i class="fa fa-pie-chart" aria-hidden="true"></i> Statistics</h4>
-                                                                    </div>
-                                                                    <div class="base_body">
-                                                                            <div class="base_title"><h2 class="t-online">Players Online: <?php echo "<span class='t-onlineCount'>" . playersOnline() . "</span>"; ?></h2></div>
-                                                                            <span class="space"></span>
-                                                                            <div class="base_title"><h2 class="t-green">Game</h2></div>
-                                                                            <ul class="list-group">
-                                                                                    <li>
-                                                                                            <div class="inner">
-                                                                                            <h4>
-                                                                                                    <strong>Server:</strong><span><?php echo checkStatus("127.0.0.1", "53595"); ?></span>
-                                                                                            </h4>
-                                                                                            </div>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                            <div class="inner">
-                                                                                            <h4>
-                                                                                                    <strong>Total Players:</strong><span><?php echo totalGameCharacters(); ?></span>
-                                                                                            </h4>
-                                                                                            </div>
-                                                                                    </li>
-                                                                            </ul>
-                                                                    </div>
-                                                                    <span class="space"></span>
-                                                                    <div class="base_body">
-                                                                            <div class="base_title"><h2 class="t-green">Website</h2></div>
-                                                                            <ul class="list-group">
-                                                                                    <li>
-                                                                                            <div class="inner">
-                                                                                            <h4>
-                                                                                                    <strong>Registrations today:</strong><span><?php echo newRegistrationsToday(); ?></span>
-                                                                                            </h4>
-                                                                                            </div>
-                                                                                    </li>		
-                                                                            </ul>
-                                                                    </div>
-                                                                    <span class="space"></span>
-                                                                    <div class="base_body">
-                                                                            <div class="base_title"><h2 class="t-green">Chat</h2></div>
-                                                                            <ul class="list-group">
-                                                                                    <li>
-                                                                                            <div class="inner">
-                                                                                            <h4>
-                                                                                                    <strong>Discord:</strong><span><a class="discord" href="https://discord.gg/YB6mfUu">Chat Now!</a></span>
-                                                                                            </h4>
-                                                                                            </div>
-                                                                                    </li>		
-                                                                            </ul>
-                                                                    <div class="frontpage-button">
-                                                                            <?php if($luna_user['is_guest']) { ?>
-                                                                                    <span>Not registered?</span>
-                                                                                    <a class="btn btn-rounded-black" href="register.php">Create an account</a>	
-                                                                            <?php } else { ?>
-                                                                                    <span>Start your adventure now!</span>
-                                                                                    <a class="btn btn-rounded-black" href="guide.php?m=game_guide">Play Now</a>	
-                                                                            <?php } ?>			
-                                                                    </div>
-                                                                    </div>
-                                                    </div>
-                                                </aside
+                                                        <div class="box">
+                                                                <div id="data">
+                                                                        <h4>Login Module</h4>
+                                                                        <p>Use the form below to login!</p>
+                                                                        <form method="post" action="/board/ucp.php?mode=login">
+                                                                        <label for="loginname">Username: </label><input type="text" name="username" class="name" id="loginname"/>
+                                                                        <label for="loginpass">Password: </label><input type="password" name="password" class="password" id="loginpass"/>
+                                                                        <input type="hidden" checked="yes" name="autologin" class="autologin"  id="autologin"/>
+                                                                        <input type="submit" value="Log In" name="login" class="submit"/>
+                                                                        <input type="hidden" name="redirect" value="/index.php" />
+                                                                        </form> 
+                                                                        <a class="submit" href="/board/ucp.php?mode=register">Register</a> 
+                                                                </div>
+                                                        </div>
+                                                </aside>
                                         <?php         
                                         } 
                                         ?>
-                                                </div>
-                                        </div>
-                                </div>
+                                                <aside>
+                                                        <div class="content">
+                                                                <div id="data">
+                                                                        <h4>Statistics</h4>
+                                                                        <p><strong>Players Online: <?php //echo "" . playersOnline() . "</span>"; ?><br />
+                                                                        Server Status: <?php //echo checkStatus("127.0.0.1", "53595"); ?><br />
+                                                                        Total Players: <?php //echo totalGameCharacters(); ?><br />
+                                                                        Registrations today: <?php //echo newRegistrationsToday(); ?></><br />
+                                                                        Discord: <a href="https://discord.gg/YB6mfUu">Chat Now!</a></strong></p><br />
+                                                                </div>
+                                                        </div>
+                                                </aside>
+                                    </div>
+                            </div>
+                    </div>
 		<?php
 		
 			if(curPageURL() != "" && !is_array(curPageURL()) && curPageURL() != 'index.php'){
