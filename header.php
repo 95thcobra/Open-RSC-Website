@@ -22,11 +22,11 @@ function curPageURL() {
 define('IN_PHPBB', true);
 $phpbb_root_path = './board/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
-include($phpbb_root_path . 'common.' . $phpEx);
-include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
-include($phpbb_root_path . 'config.' . $phpEx);
-require_once 'inc/db.php';
+require($phpbb_root_path . 'common.' . $phpEx);
+require($phpbb_root_path . 'includes/bbcode.' . $phpEx);
+require($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+require($phpbb_root_path . 'config.' . $phpEx);
+require 'inc/db.php';
 
 // Start session
 $user->session_begin();

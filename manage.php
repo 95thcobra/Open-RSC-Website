@@ -1,6 +1,6 @@
 <?php
-    include 'header.php';
-
+    require 'header.php';
+    require 'inc/dataconversions.php';
 ?>
 
 <div class="main">

@@ -1,5 +1,5 @@
 <?php
-    include 'header.php';
-    include 'news.php';
-    include 'footer.php';
+    require 'header.php';
+    require 'news.php';
+    require 'footer.php';
 ?>
