@@ -5,3 +5,4 @@
 /board/cache/production/*.php.lock
 /board/cache/production/*.php.meta
 /board/cache/production/twig/
+.DS_Store
