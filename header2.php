@@ -46,7 +46,7 @@ $user->setup('viewforum');
 
 		<header>
                         <div class="large">
-                                <img src="/css/images/logo.png" />
+                                <!--<img src="/css/images/logo.png" />-->
                         </div>
 		</header>
 		<div class="body-wrapper">
