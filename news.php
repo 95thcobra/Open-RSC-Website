@@ -100,7 +100,7 @@ $posts_result = $db->sql_query_limit($posts, $search_limit);
 	
 	
 		<div class="main">
-			<div class="content">
+			<div class="content3">
 				<article>
 				<?php
 					while( $posts_row = $db->sql_fetchrow($posts_result) ){

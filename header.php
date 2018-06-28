@@ -78,13 +78,13 @@ $user->setup('viewforum');
                                         } else { 
                                         ?>
                                                 <aside>
-                                                        <div class="box">
-                                                                <div id="data">
+                                                        <div class="content2">
+                                                                <div id="data2" style>
                                                                         <h4>Login Module</h4>
                                                                         <p>Use the form below to login!</p>
                                                                         <form method="post" action="/board/ucp.php?mode=login">
-                                                                        <label for="loginname">Username: </label><input type="text" name="username" class="name" id="loginname"/>
-                                                                        <label for="loginpass">Password: </label><input type="password" name="password" class="password" id="loginpass"/>
+                                                                        <label for="loginname">Username: </label><input type="text" name="username" class="name" style="width: 170px;" id="loginname"/>
+                                                                        <label for="loginpass">Password: </label><input type="password" name="password" class="password" style="width: 170px;" id="loginpass"/>
                                                                         <input type="hidden" checked="yes" name="autologin" class="autologin"  id="autologin"/>
                                                                         <input type="submit" value="Log In" name="login" class="submit"/>
                                                                         <input type="hidden" name="redirect" value="/index.php" />
@@ -104,35 +104,13 @@ $user->setup('viewforum');
                                                                         Server Status: <?php //echo checkStatus("127.0.0.1", "53595"); ?><br />
                                                                         Total Players: <?php //echo totalGameCharacters(); ?><br />
                                                                         Registrations today: <?php //echo newRegistrationsToday(); ?></><br />
-                                                                        Discord: <a href="https://discord.gg/YB6mfUu">Chat Now!</a></strong></p><br />
+                                                                        Discord: <a href="https://discord.gg/YB6mfUu">Chat Now!</a></strong></p>
                                                                 </div>
                                                         </div>
                                                 </aside>
-                                    </div>
-                            </div>
-                    </div>
-		<?php
-		
-			if(curPageURL() != "" && !is_array(curPageURL()) && curPageURL() != 'index.php'){
-				if(file_exists("pages/".curPageURL().".php")) {
-					include("pages/".curPageURL().".php");
-				} else {
-                                    exit;
-				}
-			} else if(is_array(curPageURL()) && curPageURL() != 'index.php' ){
-				$page = curPageURL();
-				$subpage = $page[1];
-				$page = $page[0];
-				if(file_exists("pages/".$page.".php")) {
-					include("pages/".$page.".php");
-				} else {
-                                    exit;
-				}
-			} else {
-			}
-		
-		?>
+                                        </div>
+                                </div>
                         </div>
-            </div>
+                </div>
         </body>
 </html>
