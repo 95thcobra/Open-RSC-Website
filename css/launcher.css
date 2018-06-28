@@ -165,9 +165,17 @@ cols    1     2      3      4      5      6      7      8      9      10
 px      68    160    252    344    436    528    620    712    804    896    */
 
 body {
+	width: 850px;
+	padding: 32px 48px 84px;
+	background: #000 url(/css/images/bg.png) fixed;
+	color: rgb(60,60,60);
+	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
+}
+
+newsbody {
 	width: 1006px;
 	padding: 32px 48px 84px;
-	background: #000 url(/board/styles/pbwow3/theme/images/theme/wod.png) fixed;
+	background: #000 url(/css/images/bg.png) fixed;
 	color: rgb(60,60,60);
 	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
 }

@@ -1,24 +1,4 @@
 <?php
-function curPageURL() {
-        function ($servername) {
-                return $_SERVER["SERVER_NAME"];
-        };
-        function ($requesturi) {
-                return $_SERVER["REQUEST_URI"];
-        };
-        $pageUrl = $servername.$requesturi;
-	$page = explode("/",$pageUrl);
-	$pos = strpos($page[2],'index.php');
-	if($pos !== false){
-		$return = 'index.php';
-	} else if($page[3]){
-		$return = array($page[2],$page[3]);
-	} else {
-		$return = $page[2];
-	}
-	return $return;
-}
-
 define('IN_PHPBB', true);
 $phpbb_root_path = './board/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
@@ -42,7 +22,7 @@ $user->setup('viewforum');
 		<title>Open RSC</title>
                 <link rel="stylesheet" media="all" href="/css/style.css"/>
 	</head>
-        <body lang="en">
+        <body>
 
 		<header>
                         <div class="large">

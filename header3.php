@@ -6,7 +6,7 @@
 		<title>Open RSC</title>
 		<link rel="stylesheet" media="all" href="/css/style.css"/>
 	</head>
-        <body lang="en">
+        <body>
 		
             </div>
         </body>
