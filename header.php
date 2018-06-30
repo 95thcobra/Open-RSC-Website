@@ -7,6 +7,7 @@ require($phpbb_root_path . 'includes/bbcode.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 require($phpbb_root_path . 'config.' . $phpEx);
 require 'inc/db.php';
+require 'inc/dataconversions.php';
 
 // Start session
 $user->session_begin();

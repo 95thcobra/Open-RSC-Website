@@ -48,7 +48,6 @@ var $link;
                 global $dbpasswd;
                 global $dbname;
 		$this->theQuery = $query;
-                $settings = DarscapeDatabase::getSettings();
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,$dbname);
 		return mysqli_query($con, $query);
 	}
@@ -58,35 +57,27 @@ var $link;
                 global $dbuser;
                 global $dbpasswd;
 		$this->theQuery = $query;
-                $settings = DarscapeDatabase::getSettings();
+                //$settings = DarscapeDatabase::getSettings();
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,"openrsc");
+		return mysqli_query($con, $query);
+	}
+        
+        function logquery($query) {
+                global $dbhost;
+                global $dbuser;
+                global $dbpasswd;
+		$this->theQuery = $query;
+                $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,"openrsc_logs");
 		return mysqli_query($con, $query);
 	}
         
 	function fetchArray($result) {
 		return mysqli_fetch_assoc($result);
 	}
-        function fetchResult($result) {
-                return mysql_free_result($result);
-        }
-        function numRows($result) {
-                return mysql_num_rows($result);
-        }
 	function close() {
 		mysqli_close($this->link);
 	}
 }
-
-/*
-
-$sql = 'SELECT topic_id FROM ' . TOPICS_TABLE . '
-WHERE ' . $db->sql_in_set('topic_id', $gen_id) . '
-AND ' . $db->sql_in_set('forum_id', $auth_f_read);
-$result = $db->sql_query($sql);
-$posts = $db->sql_build_query('SELECT', $posts_ary);
-while( $posts_row = $db->sql_fetchrow($posts_result) ){
-
-*/
 
 function checkStatus($ip, $port) {
 	if(!$sock = @fsockopen($ip, "$port", $num, $error, 5)) {
@@ -131,6 +122,35 @@ function newRegistrationsToday() {
                         echo $row["countUsers"];
                 }
         }
+}
+
+function gameChat() {
+        $connector = new Dbc();
+	$game_accounts = $connector->logquery("SELECT user,time,message FROM `game_chat` ORDER BY `game_chat`.`time` ASC LIMIT 10");
+        ?>
+        <table class="tg">
+                <!--<thead>
+                        <tr>
+                        <th class="tg-yw4l">Time</th>
+                        <th class="tg-yw4l">Player</th>
+                        <th class="tg-yw4l" width="433px">Message</th>
+                        </tr>
+                </thead>-->
+                <tbody>
+                <?php 
+                while($row = $connector->fetchArray($game_accounts)) {
+                ?>
+                <tr>
+                        <td class="tg-yw4l"><?php echo $row["time"] ?></td>
+                        <td class="tg-yw4l"><?php echo $row["user"] ?></td>
+                        <td class="tg-yw4l" width="433px"><?php echo $row["message"] ?></td>
+                </tr>
+                <?php
+                }
+                ?>
+                </tbody>
+        </table>
+        <?php
 }
 
 ?>
