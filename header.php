@@ -84,8 +84,8 @@ $user->setup('viewforum');
                                                                         Server Status: <?php //echo checkStatus("127.0.0.1", "53595"); ?><br />
                                                                         Total Players: <?php //echo totalGameCharacters(); ?><br />
                                                                         Registrations today: <?php //echo newRegistrationsToday(); ?></><br />
-                                                                        Discord: <a href="https://discord.gg/YB6mfUu">Chat Now!</a></strong></p>
                                                                 </div>
+                                                                <iframe src="https://discordapp.com/widget?id=459699205674369025&theme=dark" width="220" height="500" allowtransparency="false" frameborder="0"></iframe>
                                                         </div>
                                                 </aside>
                                         </div>
