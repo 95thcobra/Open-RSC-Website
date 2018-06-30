@@ -81,7 +81,7 @@ $user->setup('viewforum');
                                                                 <div id="data">
                                                                         <h4>Statistics</h4>
                                                                         <p><strong>Players Online: <?php //echo "" . playersOnline() . "</span>"; ?><br />
-                                                                        Server Status: <?php //echo checkStatus("127.0.0.1", "53595"); ?><br />
+                                                                        Server Status: <?php echo checkStatus("game.openrsc.com", "53595"); ?><br />
                                                                         Total Players: <?php //echo totalGameCharacters(); ?><br />
                                                                         Registrations today: <?php //echo newRegistrationsToday(); ?></><br />
                                                                 </div>
