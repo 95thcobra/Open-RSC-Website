@@ -80,10 +80,10 @@ $user->setup('viewforum');
                                                         <div class="content">
                                                                 <div id="data">
                                                                         <h4>Statistics</h4>
-                                                                        <p><strong>Players Online: <?php //echo "" . playersOnline() . "</span>"; ?><br />
+                                                                        <p><strong>Players Online: <?php echo "" . playersOnline() . "</span>"; ?><br />
                                                                         Server Status: <?php echo checkStatus("game.openrsc.com", "53595"); ?><br />
-                                                                        Total Players: <?php //echo totalGameCharacters(); ?><br />
-                                                                        Registrations today: <?php //echo newRegistrationsToday(); ?></><br />
+                                                                        Total Players: <?php echo totalGameCharacters(); ?><br />
+                                                                        Registrations today: <?php echo newRegistrationsToday(); ?></><br />
                                                                 </div>
                                                                 <iframe src="https://discordapp.com/widget?id=459699205674369025&theme=dark" width="220" height="500" allowtransparency="false" frameborder="0"></iframe>
                                                         </div>

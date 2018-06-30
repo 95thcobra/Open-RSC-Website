@@ -24,28 +24,54 @@ return $settings;
 
 }
 
-class DarscapeDbc extends DarscapeDatabase {
+class Dbc extends DarscapeDatabase {
 var $theQuery;
 var $link;
-	function DarscapeDbc(){
-		$settings = DarscapeDatabase::getSettings();
+	function Dbc(){
+                global $dbhost;
+                global $dbuser;
+                global $dbpasswd;
+                global $dbname;
+                global $dbport;
+                global $table_prefix;
+                global $dbms;
+                $settings = DarscapeDatabase::getSettings();
+                $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,$dbname);
 
-                $con=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
-
-		$this->link = mysqli_connect($dbhost, $dbuser, $dbpass);
+		$this->link = mysqli_connect($dbhost, $dbuser, $dbpasswd);
 		mysqli_select_db($con, $dbname);
 		register_shutdown_function(array(&$this, 'close'));
 	}
 	function query($query) {
+                global $dbhost;
+                global $dbuser;
+                global $dbpasswd;
+                global $dbname;
 		$this->theQuery = $query;
                 $settings = DarscapeDatabase::getSettings();
-
-                $con=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
+                $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,$dbname);
 		return mysqli_query($con, $query);
 	}
+        
+        function gamequery($query) {
+                global $dbhost;
+                global $dbuser;
+                global $dbpasswd;
+		$this->theQuery = $query;
+                $settings = DarscapeDatabase::getSettings();
+                $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,"openrsc");
+		return mysqli_query($con, $query);
+	}
+        
 	function fetchArray($result) {
 		return mysqli_fetch_assoc($result);
 	}
+        function fetchResult($result) {
+                return mysql_free_result($result);
+        }
+        function numRows($result) {
+                return mysql_num_rows($result);
+        }
 	function close() {
 		mysqli_close($this->link);
 	}
@@ -56,13 +82,8 @@ var $link;
 $sql = 'SELECT topic_id FROM ' . TOPICS_TABLE . '
 WHERE ' . $db->sql_in_set('topic_id', $gen_id) . '
 AND ' . $db->sql_in_set('forum_id', $auth_f_read);
-
 $result = $db->sql_query($sql);
-
-
 $posts = $db->sql_build_query('SELECT', $posts_ary);
-
-
 while( $posts_row = $db->sql_fetchrow($posts_result) ){
 
 */
@@ -76,22 +97,40 @@ function checkStatus($ip, $port) {
 }
 
 function playersOnline() {
-	global $db;
-	$getPlayersOnline = $db->query("SELECT sum(online) FROM ". dbname ."rscd_players WHERE online = '1'");
-	$countPlayers = $db->result($getPlayersOnline);
-	return number_format($countPlayers * 1.12);
+        $connector = new Dbc();
+        //$sql = "SELECT sum(online) AS `countOnline` FROM rscd_players WHERE online = '1'";
+        $getPlayersOnline = $connector->gamequery("SELECT sum(online) AS `countOnline` FROM rscd_players WHERE online = '1'");
+        while ($row = $connector->fetchArray($getPlayersOnline)) {
+                if($row["countOnline"] == NULL) {
+                        echo "0";
+                } else {
+                        echo $row["countOnline"];
+                }
+        }
 }
 
 function totalGameCharacters() {
-	global $db;
-	$game_accounts = $db->query("SELECT COUNT(*) FROM ". dbname ."rscd_players");			
-	$countCharacters = $db->result($game_accounts);
-	return number_format($countCharacters);
+        $connector = new Dbc();
+	$game_accounts = $connector->gamequery("SELECT COUNT(*) AS `countPlayers` FROM rscd_players");
+        while ($row = $connector->fetchArray($game_accounts)) {
+                if($row["countPlayers"] == NULL) {
+                        echo "0";
+                } else {
+                        echo $row["countPlayers"];
+                }
+        }
 }
+
 function newRegistrationsToday() {
-	global $db;
-	$registrations_today = $db->query("SELECT COUNT(*) FROM users WHERE registered >= '".strtotime(date('Y-m-d', time()). '00:00:00')."'");
-	$countRegistrations = $db->result($registrations_today);
-	return number_format($countRegistrations);
+        $connector = new Dbc();
+	$registrations_today = $connector->gamequery("SELECT COUNT(*) AS countUsers FROM users WHERE registered >= '".strtotime(date('Y-m-d', time()). '00:00:00')."'");
+	while ($row = $connector->fetchArray($registrations_today)) {
+                if($row["countUsers"] == NULL) {
+                        echo "0";
+                } else {
+                        echo $row["countUsers"];
+                }
+        }
 }
+
 ?>

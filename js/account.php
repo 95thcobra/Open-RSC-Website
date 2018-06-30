@@ -34,7 +34,7 @@ include '../inc/charfunctions2.php';
 include("../inc/peoplesignClient.php");
 
 $script_directory = '/';
-$connector = new DarscapeDbc();
+$connector = new Dbc();
 if($_POST['nm']){
 
 	$username = $_POST['nm'];
