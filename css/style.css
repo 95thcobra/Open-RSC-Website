@@ -346,14 +346,14 @@ p {
 
 .avatar-box {
 	width:64px;
-	height:61px;
+	height:65px;
 	float:right;
 	padding-left:5px;
 }
 
 .avatar-box img {
 	width:64px;
-	height:61px;
+	height:65px;
 }
 
 #data, #create, #pass, #delete, #error {
@@ -468,7 +468,7 @@ label {
 	float:left;
 	padding:10px;
         margin-left: 34px;
-        margin-top: 25px;
+        margin-top: 20px;
 }
 
 .content2 {
@@ -488,7 +488,7 @@ label {
 	float:left;
 	padding:10px;
         padding-top: 10px;
-        margin-top: 25px;
+        margin-top: 20px;
         margin-left: 34px;
 }
 
