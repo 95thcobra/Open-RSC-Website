@@ -1,5 +1,3 @@
 <?php
-    require 'header2.php';
-    require 'news.php';
-    require 'footer.php';
-?>
+    include 'header2.php';
+    include 'news.php';
