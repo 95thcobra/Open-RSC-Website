@@ -54,12 +54,12 @@ if (!defined('FORUM'))
 			</div>
 			<?php 
 			} 
-			$grab_char = $db->query("SELECT " . GAME_BASE . "players.owner," . GAME_BASE . "players.online, " . GAME_BASE . "experience.exp_attack, 
-				" . GAME_BASE . "experience.exp_defense, " . GAME_BASE . "experience.exp_strength, " . GAME_BASE . "experience.exp_hits, 
-				" . GAME_BASE . "experience.exp_prayer, " . GAME_BASE . "experience.exp_ranged, " . GAME_BASE . "experience.exp_magic 
-				FROM " . GAME_BASE . "players JOIN " . GAME_BASE . "experience ON " . GAME_BASE . "players.id = " . GAME_BASE . "experience.user  WHERE " . GAME_BASE . "players.id = '" . $db->escape($curr_char) . "' AND " . GAME_BASE . "players.owner = '" . $id . "'");
+			$grab_char = $db->query("SELECT rscd_players.owner,rscd_players.online, rscd_experience.exp_attack, 
+				rscd_experience.exp_defense, rscd_experience.exp_strength, rscd_experience.exp_hits, 
+				rscd_experience.exp_prayer, rscd_experience.exp_ranged, rscd_experience.exp_magic 
+				FROM rscd_players JOIN rscd_experience ON rscd_players.id = rscd_experience.user  WHERE rscd_players.id = '" . $db->escape($curr_char) . "' AND rscd_players.owner = '" . $id . "'");
 
-			//$inv_info = $db->query("SELECT id FROM " . GAME_BASE . "invitems WHERE user = '" . $db->escape($curr_char) . "' AND id IN (2092, 2094)");
+			//$inv_info = $db->query("SELECT id FROM rscd_invitems WHERE user = '" . $db->escape($curr_char) . "' AND id IN (2092, 2094)");
 			if($db->num_rows($grab_char) > 0) 
 			{
 				$fetch = $db->fetch_assoc($grab_char);	

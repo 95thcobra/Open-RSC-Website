@@ -1,7 +1,6 @@
 <?php
 
-if(!defined('IN_PHPBB'))
-{
+if(!defined('IN_PHPBB')) {
 	die("You do not have permission to access this file.");
 }
 
@@ -9,7 +8,7 @@ $phpbb_root_path = './board/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 require($phpbb_root_path . 'config.' . $phpEx);
 
-class DarscapeDatabase {
+class OpenRSCDatabase {
 
 var $settings;
 
@@ -24,7 +23,7 @@ return $settings;
 
 }
 
-class Dbc extends DarscapeDatabase {
+class Dbc extends OpenRSCDatabase {
 var $theQuery;
 var $link;
 	function Dbc(){
@@ -35,7 +34,7 @@ var $link;
                 global $dbport;
                 global $table_prefix;
                 global $dbms;
-                $settings = DarscapeDatabase::getSettings();
+                $settings = OpenRSCDatabase::getSettings();
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,$dbname);
 
 		$this->link = mysqli_connect($dbhost, $dbuser, $dbpasswd);
@@ -57,7 +56,7 @@ var $link;
                 global $dbuser;
                 global $dbpasswd;
 		$this->theQuery = $query;
-                //$settings = DarscapeDatabase::getSettings();
+                //$settings = OpenRSCDatabase::getSettings();
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,"openrsc");
 		return mysqli_query($con, $query);
 	}
@@ -89,7 +88,6 @@ function checkStatus($ip, $port) {
 
 function playersOnline() {
         $connector = new Dbc();
-        //$sql = "SELECT sum(online) AS `countOnline` FROM rscd_players WHERE online = '1'";
         $getPlayersOnline = $connector->gamequery("SELECT sum(online) AS `countOnline` FROM rscd_players WHERE online = '1'");
         while ($row = $connector->fetchArray($getPlayersOnline)) {
                 if($row["countOnline"] == NULL) {

@@ -53,13 +53,13 @@ if (!defined('FORUM'))
 			</script>
 			<form method="post" class="form-horizontal" action="char_manager.php?id=<?php echo $id;?> &amp;setting=character_renaming">
 				<?php
-				$checkleader = $db->query("SELECT id FROM " . GAME_BASE . "clan WHERE leader = '" . $db->escape($getActiveChar['username']) . "'");
+				$checkleader = $db->query("SELECT id FROM rscd_clan WHERE leader = '" . $db->escape($getActiveChar['username']) . "'");
 				if(!$db->num_rows($checkleader))
 				{
-					$checkclan = $db->query("SELECT id FROM " . GAME_BASE . "clan_players WHERE username = '" . $db->escape($getActiveChar['username']) . "'");
+					$checkclan = $db->query("SELECT id FROM rscd_clan_players WHERE username = '" . $db->escape($getActiveChar['username']) . "'");
 					if(!$db->num_rows($checkclan))
 					{
-					//$payment = $db->query("SELECT id FROM " . GAME_BASE . "invitems WHERE user = '" . $db->escape($curr_char) . "' AND id IN (2092, 2094)");
+					//$payment = $db->query("SELECT id FROM rscd_invitems WHERE user = '" . $db->escape($curr_char) . "' AND id IN (2092, 2094)");
 						//if($db->num_rows($payment) > 0)
 						//{
 								?>

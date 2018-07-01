@@ -1,6 +1,9 @@
 <?php
+        $phpbb_root_path = './board/';
+        $phpEx = substr(strrchr(__FILE__, '.'), 1);
+        require($phpbb_root_path . 'config.' . $phpEx);
         require 'header.php';
-        require 'inc/dataconversions.php';
+        require_once 'inc/db.php';
 
 
         //PAGE SELECTORS
@@ -9,17 +12,18 @@
         $setting = isset($_GET['setting']) ? $_GET['setting'] : 'select';
 
         //LOAD AND FIND CHARACTERS
-        $find_chars = $db->query("
+        $connector = new Dbc();
+	$find_chars = $connector->gamequery("
                                 SELECT id,username,combat,forum_active,creation_date
-                                FROM " . GAME_BASE . "players
+                                FROM rscd_players
                                 WHERE owner = '" . $id .  "' 
-                                ORDER BY creation_date
-                ");
-        $fetch_char_info = $db->query("SELECT p.id,p.username,p.combat,p.quest_points,p.skill_total,p.highscoreopt,e.exp_attack,e.exp_defense,e.exp_strength,
+                                ORDER BY creation_date");
+        
+        $fetch_char_info = $connector->gamequery("SELECT p.id,p.username,p.combat,p.quest_points,p.skill_total,p.highscoreopt,e.exp_attack,e.exp_defense,e.exp_strength,
         e.exp_hits,e.exp_ranged,e.exp_prayer,e.exp_magic,e.exp_cooking,e.exp_woodcut,e.exp_fletching,e.exp_fishing,
-        e.exp_firemaking,e.exp_crafting,e.exp_smithing,e.exp_mining,e.exp_herblaw,e.exp_agility,e.exp_thieving FROM " . GAME_BASE . "players AS p LEFT JOIN " . GAME_BASE . "experience AS e ON e.user = p.id WHERE p.owner = '" . $id . "' AND p.forum_active = '1' LIMIT 1");
+        e.exp_firemaking,e.exp_crafting,e.exp_smithing,e.exp_mining,e.exp_herblaw,e.exp_agility,e.exp_thieving FROM rscd_players AS p LEFT JOIN rscd_experience AS e ON e.user = p.id WHERE p.owner = '" . $id . "' AND p.forum_active = '1' LIMIT 1");
 
-        $apply_char = $db->fetch_assoc($fetch_char_info);
+        $apply_char = $connector->fetch_assoc($fetch_char_info);
 
         //SQL RESULT OF ACTIVE CHARACTER
         $isActive = ($db->num_rows($fetch_char_info));
@@ -52,13 +56,13 @@
                 if($curr_char != $apply_char['id'] && $luna_user['g_id'] != LUNA_ADMIN) 
                         redirect('char_manager.php?id='.$id);
 
-                $achievement_data = $db->query("SELECT 1 FROM " . GAME_BASE . "achievements");
+                $achievement_data = $db->query("SELECT 1 FROM rscd_achievements");
                 $total_achievements = $db->num_rows($achievement_data);
 
-                $achievement_status = $db->query("SELECT 1 FROM " . GAME_BASE . "achievement_progress WHERE user = '".$curr_char."'");
+                $achievement_status = $db->query("SELECT 1 FROM rscd_achievement_progress WHERE user = '".$curr_char."'");
                 $total_completed = $db->num_rows($achievement_status);
 
-                $achievement_result = $db->query("SELECT a.dbid, a.name, a.description, a.extra, ap.completed, ap.unlocked FROM " . GAME_BASE . "achievements AS a LEFT JOIN " . GAME_BASE . "achievement_progress AS ap ON ap.id = a.dbid AND ap.user = '".$curr_char."' ORDER BY ap.unlocked DESC");
+                $achievement_result = $db->query("SELECT a.dbid, a.name, a.description, a.extra, ap.completed, ap.unlocked FROM rscd_achievements AS a LEFT JOIN rscd_achievement_progress AS ap ON ap.id = a.dbid AND ap.user = '".$curr_char."' ORDER BY ap.unlocked DESC");
 
                 // Function to calculate achievement progress percentages
                 function get_achievement_percentage($completed, $total, $boolean = false) 
@@ -83,8 +87,8 @@
                                         $value = isset($_POST['put_active']) ? '1' : '0';
                                         if($value == 1) 
                                         {
-                                                $db->query("UPDATE " . GAME_BASE . "players SET forum_active='0' WHERE id = '". $apply_char['id'] . "'") or error('Unable to remove current active character', __FILE__, __LINE__, $db->error());
-                                                $db->query("UPDATE " . GAME_BASE . "players SET forum_active='1' WHERE id = '".$db->escape($curr_char)."'") or error('Unable to set active character', __FILE__, __LINE__, $db->error());
+                                                $db->query("UPDATE rscd_players SET forum_active='0' WHERE id = '". $apply_char['id'] . "'") or error('Unable to remove current active character', __FILE__, __LINE__, $db->error());
+                                                $db->query("UPDATE rscd_players SET forum_active='1' WHERE id = '".$db->escape($curr_char)."'") or error('Unable to set active character', __FILE__, __LINE__, $db->error());
                                         }
                                         redirect('char_manager.php?id='.$id);
                                 }
@@ -97,12 +101,12 @@
                                         if($curr_char != $apply_char['id'] && $luna_user['g_id'] != LUNA_ADMIN) 
                                                 redirect('char_manager.php?id='.$id);
 
-                                        $result = $db->query("SELECT highscoreopt FROM " . GAME_BASE . "players WHERE id = '" . $db->escape($curr_char) . "' AND owner = '" . $id . "'") or error('Unable to update highscore option', __FILE__, __LINE__, $db->error());
+                                        $result = $db->query("SELECT highscoreopt FROM rscd_players WHERE id = '" . $db->escape($curr_char) . "' AND owner = '" . $id . "'") or error('Unable to update highscore option', __FILE__, __LINE__, $db->error());
                                         if($db->num_rows($result) > 0)
                                         {
                                                 $option = $db->fetch_assoc($result);
                                                 $update = $option['highscoreopt'] == 0 ? 1 : 0;
-                                                $db->query("UPDATE " . GAME_BASE . "players SET highscoreopt = '" . $update . "' WHERE id = '" . $db->escape($curr_char) . "'");
+                                                $db->query("UPDATE rscd_players SET highscoreopt = '" . $update . "' WHERE id = '" . $db->escape($curr_char) . "'");
                                                 redirect('char_manager.php?id='.$id.'&setting=highscore');
                                         }
                                 }
@@ -115,7 +119,7 @@
                                         if($curr_char != $apply_char['id'] && $luna_user['g_id'] != LUNA_ADMIN) 
                                                 redirect('char_manager.php?id='.$id);
 
-                                        $find = $db->query("SELECT username,pass,password_salt FROM " . GAME_BASE . "players WHERE " . GAME_BASE . "players.id = '" . $db->escape($curr_char) . "' AND owner = '" . $id . "'");
+                                        $find = $db->query("SELECT username,pass,password_salt FROM rscd_players WHERE rscd_players.id = '" . $db->escape($curr_char) . "' AND owner = '" . $id . "'");
                                         $arrayit = $db->fetch_assoc($find);
                                         if($db->num_rows($find) > 0)
                                         {
@@ -141,7 +145,7 @@
                                                         $salt = random_pass(16); // 8 default?                                                                          
                                                         $new_password_hash = game_hmac($new_salt.$first_pass, $HMAC_PRIVATE_KEY);
 
-                                                        $db->query("UPDATE " . GAME_BASE . "players SET pass= '" . $new_password_hash . "', password_salt='".$new_salt."' WHERE id = '" . $db->escape($curr_char) . "'") or die('Failed to update game character password');
+                                                        $db->query("UPDATE rscd_players SET pass= '" . $new_password_hash . "', password_salt='".$new_salt."' WHERE id = '" . $db->escape($curr_char) . "'") or die('Failed to update game character password');
                                                         redirect('char_manager.php?id='.$id.'&setting=change_password&saved=true');
                                                 }
                                         } 
@@ -179,14 +183,14 @@
                                         if(count($errors) == 0)
                                         {
 
-                                                $character = $db->query("SELECT id, online, owner, banned FROM " . GAME_BASE . "players WHERE username = '" . $db->escape($current_name) . "' AND owner = '". $id ."'");
+                                                $character = $db->query("SELECT id, online, owner, banned FROM rscd_players WHERE username = '" . $db->escape($current_name) . "' AND owner = '". $id ."'");
                                                 $check = $db->fetch_assoc($character);	
                                                 if($db->num_rows($character) > 0) 
                                                 {
                                                         if($check['banned'] != 0) {
                                                                 $errors[] = "Banned characters cannot use this feature.";
                                                         } else {
-                                                                $check_availability = $db->query("SELECT id FROM " . GAME_BASE . "players WHERE username = '" . $db->escape($new_name) . "'");
+                                                                $check_availability = $db->query("SELECT id FROM rscd_players WHERE username = '" . $db->escape($new_name) . "'");
                                                                 if($db->num_rows($check_availability) > 0)
                                                                 {
                                                                         $errors[] = "The name you are attempting to rename this character to already exists.";
@@ -195,15 +199,15 @@
                                                                 {
                                                                         if($check['online'] == 0) 
                                                                         {
-                                                                                        $db->query("UPDATE " . GAME_BASE . "players SET username='" . $db->escape($new_name) . "' WHERE id ='" . $check['id'] . "'") or error('Failed to rename player username', __FILE__, __LINE__, $db->error());
-                                                                                        $db->query("UPDATE " . GAME_BASE . "players SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "experience SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "curstats SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "invitems SET user = '" . $db->escape($usernameHash) . "' WHERE user='" . $check['user'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "quests SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "auctions SET player = '" . $db->escape($new_name) . "' WHERE player='" . $check['id'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "friends SET user = '" . $db->escape($usernameHash) . "' WHERE user='" . $check['user'] . "'");
-                                                                                        $db->query("UPDATE " . GAME_BASE . "ignores SET user = '" . $db->escape($usernameHash) . "' WHERE user='" . $check['user'] . "'");
+                                                                                        $db->query("UPDATE rscd_players SET username='" . $db->escape($new_name) . "' WHERE id ='" . $check['id'] . "'") or error('Failed to rename player username', __FILE__, __LINE__, $db->error());
+                                                                                        $db->query("UPDATE rscd_players SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
+                                                                                        $db->query("UPDATE rscd_experience SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
+                                                                                        $db->query("UPDATE rscd_curstats SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
+                                                                                        $db->query("UPDATE rscd_invitems SET user = '" . $db->escape($usernameHash) . "' WHERE user='" . $check['user'] . "'");
+                                                                                        $db->query("UPDATE rscd_quests SET user = '" . $db->escape($usernameHash) . "' WHERE id='" . $check['id'] . "'");
+                                                                                        $db->query("UPDATE rscd_auctions SET player = '" . $db->escape($new_name) . "' WHERE player='" . $check['id'] . "'");
+                                                                                        $db->query("UPDATE rscd_friends SET user = '" . $db->escape($usernameHash) . "' WHERE user='" . $check['user'] . "'");
+                                                                                        $db->query("UPDATE rscd_ignores SET user = '" . $db->escape($usernameHash) . "' WHERE user='" . $check['user'] . "'");
 
                                                                                         // Insert into name change table			
                                                                                         $db->query('INSERT INTO ' . GAME_BASE . 'name_changes (user, owner, old_name, new_name, date) VALUES('.intval($check['id']).', '.intval($check['owner']).', \''.$db->escape($current_name).'\',  \''.$db->escape($new_name).'\', '.time().')') or error('Unable to save character name change!', __FILE__, __LINE__, $db->error());
@@ -261,8 +265,8 @@
                                         }
                                         if(count($errors) == 0)
                                         {
-                                                $check_name_in_use = $db->query("SELECT id FROM " . GAME_BASE . "players WHERE username = '" . $db->escape($username) . "'");
-                                                $check_user_amount = $db->num_rows($db->query("SELECT id FROM " . GAME_BASE . "players WHERE owner = '" . $id . "'"));
+                                                $check_name_in_use = $db->query("SELECT id FROM rscd_players WHERE username = '" . $db->escape($username) . "'");
+                                                $check_user_amount = $db->num_rows($db->query("SELECT id FROM rscd_players WHERE owner = '" . $id . "'"));
                                                 if($check_user_amount >= $my_character_slots)
                                                 {
                                                         $errors[] = "Sorry you have reached your maximum limit of in-game characters (".$my_character_slots.").";
@@ -279,10 +283,10 @@
                                                                 $password_hash = game_hmac($salt.$password_1, $HMAC_PRIVATE_KEY);
                                                                 $usernameHash = usernameToHash($username);
 
-                                                                $db->query("INSERT INTO " . GAME_BASE . "players (user,username,owner,pass,password_salt,creation_date,creation_ip) VALUES ('" . $db->escape($usernameHash) . "', '" . $db->escape($username) . "', '" . $id . "', '" . $password_hash . "', '" . $salt . "', '".(time())."', '". $_SERVER['REMOTE_ADDR'] ."');") or error('Unable to insert game character', __FILE__, __LINE__, $db->error());
+                                                                $db->query("INSERT INTO rscd_players (user,username,owner,pass,password_salt,creation_date,creation_ip) VALUES ('" . $db->escape($usernameHash) . "', '" . $db->escape($username) . "', '" . $id . "', '" . $password_hash . "', '" . $salt . "', '".(time())."', '". $_SERVER['REMOTE_ADDR'] ."');") or error('Unable to insert game character', __FILE__, __LINE__, $db->error());
                                                                 $new_uid = $db->insert_id();
-                                                                $db->query("INSERT INTO " . GAME_BASE . "curstats (user) VALUES ('" . $usernameHash . "');") or error('Unable to insert current stats on game character', __FILE__, __LINE__, $db->error());
-                                                                $db->query("INSERT INTO " . GAME_BASE . "experience (user) VALUES ('" . $usernameHash . "');") or error('Unable to insert experience on game character', __FILE__, __LINE__, $db->error());
+                                                                $db->query("INSERT INTO rscd_curstats (user) VALUES ('" . $usernameHash . "');") or error('Unable to insert current stats on game character', __FILE__, __LINE__, $db->error());
+                                                                $db->query("INSERT INTO rscd_experience (user) VALUES ('" . $usernameHash . "');") or error('Unable to insert experience on game character', __FILE__, __LINE__, $db->error());
                                                                 redirect('char_manager.php?id='.$id.'&view=create&saved=true');
                                                         }
                                                 }
@@ -310,13 +314,13 @@
                                                 $cur_del_char = $db->fetch_assoc($character_to_delete_query);
 
                                                 // DELETE CHARACTER
-                                                $db->query("DELETE FROM " . GAME_BASE . "players WHERE id = '" . $db->escape($character_to_delete) . "'");
-                                                $db->query("DELETE FROM " . GAME_BASE . "curstats WHERE id = '" . $db->escape($character_to_delete) . "'");
-                                                $db->query("DELETE FROM " . GAME_BASE . "experience WHERE id = '" .  $db->escape($character_to_delete) . "'");
-                                                $db->query("DELETE FROM " . GAME_BASE . "friends WHERE user = '" .  $db->escape($cur_del_char['user']) . "'");
-                                                $db->query("DELETE FROM " . GAME_BASE . "ignores WHERE user = '" .  $db->escape($cur_del_char['user']) . "'");
-                                                $db->query("DELETE FROM " . GAME_BASE . "invitems WHERE user = '" .  $db->escape($cur_del_char['user']). "'");
-                                                $db->query("DELETE FROM " . GAME_BASE . "quests WHERE id = '" .  $db->escape($character_to_delete) . "'");
+                                                $db->query("DELETE FROM rscd_players WHERE id = '" . $db->escape($character_to_delete) . "'");
+                                                $db->query("DELETE FROM rscd_curstats WHERE id = '" . $db->escape($character_to_delete) . "'");
+                                                $db->query("DELETE FROM rscd_experience WHERE id = '" .  $db->escape($character_to_delete) . "'");
+                                                $db->query("DELETE FROM rscd_friends WHERE user = '" .  $db->escape($cur_del_char['user']) . "'");
+                                                $db->query("DELETE FROM rscd_ignores WHERE user = '" .  $db->escape($cur_del_char['user']) . "'");
+                                                $db->query("DELETE FROM rscd_invitems WHERE user = '" .  $db->escape($cur_del_char['user']). "'");
+                                                $db->query("DELETE FROM rscd_quests WHERE id = '" .  $db->escape($character_to_delete) . "'");
 
                                                 // UPDATE THE ACTIVATION KEYS TO NULL.
                                                 $db->query('UPDATE '.$db->prefix.'users SET activate_string=NULL, activate_key=NULL WHERE id='.$id) or error('Unable to update user defaults', __FILE__, __LINE__, $db->error());
