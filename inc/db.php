@@ -145,4 +145,4 @@ function gameChat() {
                         </tbody>
                 </table>
         </div>
-        <?php } ?>
+<?php }
