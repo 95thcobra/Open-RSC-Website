@@ -24,7 +24,3 @@ $user->setup('viewforum');
                 <link rel="stylesheet" media="all" href="/css/launcher.css"/>
 	</head>
         <body>
-		<header>
-		</header>
-        </body>
-</html>
