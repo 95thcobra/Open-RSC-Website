@@ -172,6 +172,14 @@ body {
 	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
 }
 
+newsbody {
+	width: 1006px;
+	padding: 32px 48px 84px;
+	background: #000 url(/css/images/bg.png) fixed;
+	color: rgb(60,60,60);
+	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
+}
+
 .body-wrapper {
 	background:#201B18;
 	position:relative;

@@ -165,10 +165,10 @@ cols    1     2      3      4      5      6      7      8      9      10
 px      68    160    252    344    436    528    620    712    804    896    */
 
 body {
-	width: 850px;
+	width: 1006px;
 	padding: 32px 48px 84px;
-	background: #000 url(/css/images/bg.png) fixed;
-	color: rgb(60,60,60);
+        background: #000 url(/css/images/bg.png) fixed;
+	color: rgb(255,255,60);
 	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
 }
 
@@ -462,11 +462,11 @@ label {
 .content {
 	background: #201B18;
 	background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.31, rgba(32,27,24,1)),
-    color-stop(0.99, rgba(42,34,32,1))
+                linear,
+                left bottom,
+                left top,
+                color-stop(0.31, rgba(32,27,24,1)),
+                color-stop(0.99, rgba(42,34,32,1))
 	);
 	background-image: -moz-linear-gradient(
 		center bottom,
@@ -482,11 +482,11 @@ label {
 .content2 {
 	background: #201B18;
 	background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.31, rgba(32,27,24,1)),
-    color-stop(0.99, rgba(42,34,32,1))
+                linear,
+                left bottom,
+                left top,
+                color-stop(0.31, rgba(32,27,24,1)),
+                color-stop(0.99, rgba(42,34,32,1))
 	);
 	background-image: -moz-linear-gradient(
 		center bottom,
@@ -503,11 +503,11 @@ label {
 .content3 {
 	background: #201B18;
 	background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.31, rgba(32,27,24,1)),
-    color-stop(0.99, rgba(42,34,32,1))
+                linear,
+                left bottom,
+                left top,
+                color-stop(0.31, rgba(32,27,24,1)),
+                color-stop(0.99, rgba(42,34,32,1))
 	);
 	background-image: -moz-linear-gradient(
 		center bottom,
@@ -518,6 +518,27 @@ label {
 	padding:10px;
         padding-top: 10px;
         margin-top: 0px;
+        margin-left: 0px;
+}
+
+.content4 {
+	background: #201B18;
+	background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0.31, rgba(32,27,24,1)),
+                color-stop(0.99, rgba(42,34,32,1))
+	);
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgba(32,27,24,1) 31%,
+		rgba(42,34,32,1) 99%
+	);
+	float:left;
+	padding:10px;
+        padding-top: 10px;
+        margin-top: 3px;
         margin-left: 0px;
 }
 
@@ -936,11 +957,11 @@ label {
 .button:active {
 	color:white;
 	background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.31, rgba(42,34,32,1)),
-    color-stop(0.99, rgba(32,27,24,1))
+                linear,
+                left bottom,
+                left top,
+                color-stop(0.31, rgba(42,34,32,1)),
+                color-stop(0.99, rgba(32,27,24,1))
 	);
 	background-image: -moz-linear-gradient(
 		center bottom,
@@ -953,3 +974,44 @@ footer{
 	position:relative;
 }
 
+.tg  {
+        border-collapse:collapse;
+        border-spacing:0;
+        background: #201B18;
+        text-align: left;
+        
+}
+
+.tg td{
+        font-family:Arial, sans-serif;
+        font-size:14px;
+        padding:10px 20px;
+        border-style:solid;
+        border-width:1px;
+        overflow:hidden;
+        word-break:normal;
+        border-color:black;
+}
+
+.tg th{
+        font-family:Arial, sans-serif;
+        font-size:14px;
+        font-weight:normal;
+        padding:10px 20px;
+        border-style:solid;
+        border-width:1px;
+        overflow:hidden;
+        word-break:normal;
+        border-color:black;
+}
+
+.tg .tg-yw4l{
+        vertical-align:top
+}
+
+div.scroll {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
