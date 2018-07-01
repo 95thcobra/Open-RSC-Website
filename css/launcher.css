@@ -310,7 +310,7 @@ p {
 
 .account-panel {
 	width: 336px;
-	height: 61px;
+	height: 65px;
 	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.31, rgba(32, 27, 24, 1)), color-stop(0.99, rgba(42, 34, 32, 1)) );
 	background-image: -moz-linear-gradient( center bottom, rgba(32, 27, 24, 1) 31%, rgba(42, 34, 32, 1) 99% );
 	float: right;
@@ -346,14 +346,14 @@ p {
 
 .avatar-box {
 	width:64px;
-	height:61px;
+	height:65px;
 	float:right;
 	padding-left:5px;
 }
 
 .avatar-box img {
 	width:64px;
-	height:61px;
+	height:65px;
 }
 
 #data, #create, #pass, #delete, #error {
