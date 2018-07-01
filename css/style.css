@@ -971,7 +971,9 @@ footer{
         border-spacing:0;
         background: #201B18;
         text-align: left;
+        
 }
+
 .tg td{
         font-family:Arial, sans-serif;
         font-size:14px;
@@ -982,6 +984,7 @@ footer{
         word-break:normal;
         border-color:black;
 }
+
 .tg th{
         font-family:Arial, sans-serif;
         font-size:14px;
@@ -993,7 +996,14 @@ footer{
         word-break:normal;
         border-color:black;
 }
+
 .tg .tg-yw4l{
         vertical-align:top
-            
+}
+
+div.scroll {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
 }

@@ -126,30 +126,24 @@ function newRegistrationsToday() {
 
 function gameChat() {
         $connector = new Dbc();
-	$game_accounts = $connector->logquery("SELECT user,time,message FROM `game_chat` ORDER BY `game_chat`.`time` ASC LIMIT 10");
+        $game_accounts = $connector->logquery("SELECT A.user, A.username, B.user, B.time, B.message FROM openrsc.rscd_players as A INNER JOIN openrsc_logs.game_chat as B ON A.user = B.user ORDER BY B.time DESC LIMIT 200");
+        date_default_timezone_set('America/New_York');
         ?>
-        <table class="tg">
-                <!--<thead>
+        <div class="scroll">
+                <table class="tg" style="overflow-x:auto; border-collapse:collapse;">
+                        <tbody>
+                        <?php 
+                        while($row = $connector->fetchArray($game_accounts)) {
+                        ?>
                         <tr>
-                        <th class="tg-yw4l">Time</th>
-                        <th class="tg-yw4l">Player</th>
-                        <th class="tg-yw4l" width="433px">Message</th>
+                                <td class="tg-yw4l" width="680px"><?php echo ucwords($row["username"]) ?> @ <?php echo date("D g:i a", $row["time"]) ?>: <?php echo $row["message"] ?></td>
                         </tr>
-                </thead>-->
-                <tbody>
-                <?php 
-                while($row = $connector->fetchArray($game_accounts)) {
-                ?>
-                <tr>
-                        <td class="tg-yw4l"><?php echo $row["time"] ?></td>
-                        <td class="tg-yw4l"><?php echo $row["user"] ?></td>
-                        <td class="tg-yw4l" width="433px"><?php echo $row["message"] ?></td>
-                </tr>
-                <?php
-                }
-                ?>
-                </tbody>
-        </table>
+                        <?php
+                        }
+                        ?>
+                        </tbody>
+                </table>
+        </div>
         <?php
 }
 
