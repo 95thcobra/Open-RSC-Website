@@ -3,7 +3,7 @@ define('IN_PHPBB', true);
 $phpbb_root_path = './board/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 $page = $_SERVER['PHP_SELF'];
-$sec = "3";
+$sec = "10";
 require($phpbb_root_path . 'common.' . $phpEx);
 require($phpbb_root_path . 'includes/bbcode.' . $phpEx);
 require($phpbb_root_path . 'includes/functions_display.' . $phpEx);

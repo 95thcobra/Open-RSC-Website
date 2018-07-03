@@ -2,13 +2,13 @@
 include 'header4.php';
 
 $connector = new Dbc();
-$playerDeaths = $connector->logquery("SELECT A.user, A.username, B.user, B.x, B.y, B.time FROM openrsc.rscd_players as A INNER JOIN openrsc_logs.game_death as B ON A.user = B.user ORDER BY B.time DESC LIMIT 50");
-$playerPositions = $connector->gamequery("SELECT A.user, A.username, B.user, B.x, B.y FROM openrsc.rscd_players as A INNER JOIN openrsc.rscd_players as B ON A.user = B.user LIMIT 50");
+$playerDeaths = $connector->logquery("SELECT A.user, A.username, B.user, B.x, B.y, B.time FROM openrsc.rscd_players as A INNER JOIN openrsc_logs.game_death as B ON A.user = B.user ORDER BY B.time DESC LIMIT 10");
+$playerPositions = $connector->gamequery("SELECT A.user, A.username, B.user, B.x, B.y, B.online FROM openrsc.rscd_players as A INNER JOIN openrsc.rscd_players as B ON A.user = B.user WHERE B.online = 1 LIMIT 150");
 $xs = $ys = array();
 
 function coords_to_image($x, $y) {
-        $x = 2152 - (($x - 50) * 3);
-        $y = ($y - 432) * 3;
+        $x = 2152 - (($x - 45) * 3);
+        $y = ($y - 437) * 3;
         if($x < 0 || $x > 2152 || $y < 0 || $y > 1007) {
                 return false;
         }
