@@ -4,7 +4,7 @@
 ?>
 
 <div class="main">
-        <div class="content">
+        <div class="content3">
                 <article>
                         <h4><p><a href="/board/ucp.php?mode=register"/><b>Register a forum account</b></a></p></h4>
                         <br />
@@ -14,7 +14,3 @@
                 </article>
         </div>
 </div>
-    
-<?php
-    include 'footer.php';
-?>

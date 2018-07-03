@@ -37,8 +37,7 @@ $user->setup('viewforum');
 						<li><a href="/">Home</a></li>
 						<li><a href="/board/index.php">Forum</a></li>
 						<li><a href="/playnow.php">Play Now</a></li>
-                                                <li><a href="/database.php">Game Database</a></li>
-						<li><a href="/highscores.php">Highscores</a></li>
+						<li><a target="_blank" href="/worldmap.php">World Map</a></li>
 					</ul>
 				</div>
 				<div class="account-panel">
@@ -81,10 +80,10 @@ $user->setup('viewforum');
                                                         <div class="content">
                                                                 <div id="data">
                                                                         <h4>Statistics</h4>
-                                                                        <p><strong>Players Online: <?php echo "" . playersOnline() . "</span>"; ?><br />
+                                                                        <p><strong>Players Online: <?php echo playersOnline(); ?><br />
                                                                         Server Status: <?php echo checkStatus("game.openrsc.com", "53595"); ?><br />
                                                                         Total Players: <?php echo totalGameCharacters(); ?><br />
-                                                                        Registrations today: <?php echo newRegistrationsToday(); ?><br />
+                                                                        Registrations today: <?php echo newRegistrationsToday(); ?><br /></strong></p>
                                                                 </div>
                                                                 <iframe src="https://discordapp.com/widget?id=459699205674369025&theme=dark" width="220" height="500" allowtransparency="false" frameborder="0"></iframe>
                                                         </div>

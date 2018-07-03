@@ -24,9 +24,9 @@ return $settings;
 }
 
 class Dbc extends OpenRSCDatabase {
-var $theQuery;
-var $link;
-	function Dbc(){
+        var $theQuery;
+        var $link;
+        function Dbc(){
                 global $dbhost;
                 global $dbuser;
                 global $dbpasswd;
@@ -36,50 +36,50 @@ var $link;
                 global $dbms;
                 $settings = OpenRSCDatabase::getSettings();
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,$dbname);
+                $this->link = mysqli_connect($dbhost, $dbuser, $dbpasswd);
+                mysqli_select_db($con, $dbname);
+                register_shutdown_function(array(&$this, 'close'));
+        }
 
-		$this->link = mysqli_connect($dbhost, $dbuser, $dbpasswd);
-		mysqli_select_db($con, $dbname);
-		register_shutdown_function(array(&$this, 'close'));
-	}
-	function query($query) {
+        function query($query) {
                 global $dbhost;
                 global $dbuser;
                 global $dbpasswd;
                 global $dbname;
-		$this->theQuery = $query;
+                $this->theQuery = $query;
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,$dbname);
-		return mysqli_query($con, $query);
-	}
-        
+                return mysqli_query($con, $query);
+        }
+
         function gamequery($query) {
                 global $dbhost;
                 global $dbuser;
                 global $dbpasswd;
-		$this->theQuery = $query;
-                //$settings = OpenRSCDatabase::getSettings();
+                $this->theQuery = $query;
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,"openrsc");
-		return mysqli_query($con, $query);
-	}
-        
+                return mysqli_query($con, $query);
+        }
+
         function logquery($query) {
                 global $dbhost;
                 global $dbuser;
                 global $dbpasswd;
-		$this->theQuery = $query;
+                $this->theQuery = $query;
                 $con=mysqli_connect($dbhost,$dbuser,$dbpasswd,"openrsc_logs");
-		return mysqli_query($con, $query);
-	}
-        
-	function fetchArray($result) {
-		return mysqli_fetch_assoc($result);
-	}
-	function close() {
-		mysqli_close($this->link);
-	}
+                return mysqli_query($con, $query);
+        }
+
+        function fetchArray($result) {
+                return mysqli_fetch_assoc($result);
+        }
+
+        function close() {
+                mysqli_close($this->link);
+        }
 }
 
 function checkStatus($ip, $port) {
-	if(!$sock = @fsockopen($ip, "$port", $num, $error, 5)) {
+	if(!$sock = fsockopen($ip, $port)) {
 		echo('<font style="color: red;">Offline</font>');
 	} else {
 		echo('<font style="color: green;">Online</font>');
@@ -143,4 +143,5 @@ function gameChat() {
                         </tbody>
                 </table>
         </div>
-<?php }
+<?php 
+}
