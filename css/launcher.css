@@ -1003,7 +1003,7 @@ footer{
 
 div.scroll {
     display: block;
-    max-height: 300px;
+    max-height: 450px;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
