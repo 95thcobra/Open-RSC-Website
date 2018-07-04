@@ -129,17 +129,12 @@ function gameChat() {
         ?>
         <div class="scroll">
                 <table class="tg" style="overflow-x:auto; border-collapse:collapse;">
-                    <thead>
-                        <tr>
-                    <h4>Recent in-game chat</h4>
-                        </tr>
-                    </thead>
                         <tbody>
-                        <?php while($row = $connector->fetchArray($game_accounts)) { ?>
-                        <tr>
-                                <td class="tg-yw4l" width="680px"><?php echo ucwords($row["username"]) ?> @ <?php echo date("D g:i a", $row["time"]) ?>: <?php echo $row["message"] ?></td>
-                        </tr>
-                        <?php } ?>
+                                <?php while($row = $connector->fetchArray($game_accounts)) { ?>
+                                        <tr>
+                                                <td class="tg-yw4l" width="700px"><?php echo ucwords($row["username"]) ?> @ <?php echo date("D g:i a", $row["time"]) ?>: <?php echo $row["message"] ?></td>
+                                        </tr>
+                                <?php } ?>
                         </tbody>
                 </table>
         </div>

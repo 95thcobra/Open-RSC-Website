@@ -12,14 +12,16 @@ require 'inc/dataconversions.php';
 // Start session
 $user->session_begin();
 $auth->acl($user->data);
-$user->setup('viewforum');
+$user->setup('viewforum'); 
+
+$sec = "10"; //page refresh time in seconds
 ?>
 
 <!doctype html>
 <html>
 
 	<head>
-		<meta charset="utf-8"/>
+		<meta http-equiv="refresh" content="<?php echo $sec?>;URL='<?php echo $page?>'">
 		<title>Open RSC</title>
                 <link rel="stylesheet" media="all" href="/css/style.css"/>
 	</head>
@@ -30,14 +32,14 @@ $user->setup('viewforum');
                                 <img src="/css/images/logo.png" />
                         </div>
 		</header>
-		<div class="body-wrapper">
+		<div class="body-wrapper">	
 			<div class="navigation">
 				<div class="navbar">
 					<ul>
 						<li><a href="/">Home</a></li>
 						<li><a href="/board/index.php">Forum</a></li>
 						<li><a href="/playnow.php">Play Now</a></li>
-            <li><a href="/chat.php">In-game Chat</a></li>
+                                                <li><a href="/chat.php">In-game Chat</a></li>
 						<li><a target="_blank" href="/worldmap.php">World Map</a></li>
 					</ul>
 				</div>
@@ -55,8 +57,8 @@ $user->setup('viewforum');
 						<span class="welcome-text">
 							<a href='/board/ucp.php?mode=logout&amp;sid=<?php print $user->data['session_id'];?>'>Log out</a>
 						</span>
-					<?php
-                                        } else {
+					<?php 
+                                        } else { 
                                         ?>
                                                 <aside>
                                                         <div class="content2">
@@ -69,13 +71,13 @@ $user->setup('viewforum');
                                                                         <input type="hidden" checked="yes" name="autologin" class="autologin"  id="autologin"/>
                                                                         <input type="submit" value="Log In" name="login" class="submit"/>
                                                                         <input type="hidden" name="redirect" value="/index.php" />
-                                                                        </form>
-                                                                        <a class="submit" href="/board/ucp.php?mode=register">Register</a>
+                                                                        </form> 
+                                                                        <a class="submit" href="/board/ucp.php?mode=register">Register</a> 
                                                                 </div>
                                                         </div>
                                                 </aside>
-                                        <?php
-                                        }
+                                        <?php         
+                                        } 
                                         ?>
                                                 <aside>
                                                         <div class="content">
