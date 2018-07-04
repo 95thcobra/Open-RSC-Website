@@ -979,3 +979,14 @@ div.scroll {
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+.question { 
+    font-size: 18px;
+    margin-left: 10px;
+    color: white;
+}
+
+.answer { 
+    margin-left: 20px;
+    color: white;
+}

@@ -1,5 +1,5 @@
 <div class="main">
-        <div id="content3">
+        <div id="content">
                 <?php echo gameChat(); ?>
         </div>
 </div>

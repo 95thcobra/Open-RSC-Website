@@ -1,4 +1,4 @@
 <?php
     require 'header.php';
-    require 'corenews.php';
+    require 'corefaq.php';
 ?>
