@@ -37,7 +37,7 @@ $user->setup('viewforum');
 						<li><a href="/">Home</a></li>
 						<li><a href="/board/index.php">Forum</a></li>
 						<li><a href="/playnow.php">Play Now</a></li>
-            <li><a href="/chat.php">In-game Chat</a></li>
+						<li><a href="/chat.php">In-game Chat</a></li>
 						<li><a target="_blank" href="/worldmap.php">World Map</a></li>
 					</ul>
 				</div>
