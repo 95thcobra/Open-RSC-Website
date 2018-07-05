@@ -79,11 +79,11 @@ class Dbc extends OpenRSCDatabase {
 }
 
 function checkStatus($ip, $port) {
-	if(!$sock = fsockopen($ip, $port)) {
-		echo('<font style="color: red;">Offline</font>');
-	} else {
-		echo('<font style="color: green;">Online</font>');
-	}
+        if(!$sock = @fsockopen($ip, "$port", $num, $error, 5)) {
+                echo('<font style="color: red;">Offline</font>');
+        } else {
+                echo('<font style="color: green;">Online</font>');
+        }
 }
 
 function playersOnline() {
