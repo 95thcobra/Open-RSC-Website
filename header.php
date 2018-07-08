@@ -27,7 +27,7 @@ $user->setup('viewforum');
 
 		<header>
                         <div class="large">
-                                <img src="/css/images/logo.png" />
+                            <a href="/"><img src="/css/images/logo.png" /></a>
                         </div>
 		</header>
 		<div class="body-wrapper">
@@ -51,7 +51,7 @@ $user->setup('viewforum');
 					<div class="account-text">
 					<?php if($user->data['is_registered']){ ?>
 						<span class="welcome-message block">Welcome back, <?php print $user->data['username']; ?></span>
-						<span class="welcome-text"><a href="/manage.php">Account Management</a></span>
+						<span class="welcome-text"><a href="/board/ucp.php?i=179">Account Management</a></span>
 						<span class="welcome-text"> | (<a href="/board/ucp.php?i=pm&folder=inbox"><?php print $user->data['user_unread_privmsg']; ?></a>) | </span>
 						<span class="welcome-text">
 							<a href='/board/ucp.php?mode=logout&amp;sid=<?php print $user->data['session_id'];?>'>Log out</a>
