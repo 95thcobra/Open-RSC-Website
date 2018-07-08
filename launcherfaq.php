@@ -1,3 +1,3 @@
 <?php
     include 'header2.php';
-    include 'corenews.php';
+    include 'corefaq.php';
