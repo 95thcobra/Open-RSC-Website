@@ -11,7 +11,7 @@
                         <p class="answer">Marwolf and Kenix</p><br />
                         
                         <p class="question">How does the Open RSC government run the game?</p>
-                        <p class="answer">We believe in non-interference. If real life illegal activity is found happening, then we will intervene.<br /><br />
+                        <p class="answer">We believe in non-interference. If real life illegal activity is found happening, then we will ban the person.<br /><br />
                             <i>- Swearing, advertising, botting, scamming, hacking, and bullying may be given temporary or <br />
                                 permanent mutes if bad behavior persists.</i></p><br />
                         
@@ -30,7 +30,9 @@
                         
                         <p class="question">From what period is Open RSC based on traditional RSC?</p>
                         <p class="answer">We believe the final version of traditional RSC is best to begin with but choose to disable some features<br />
-                              added over time that we consider either annoying or pointless.</p><br />
+                              added over time that we consider either annoying or pointless. <br /><br />
+                              For those that want to run their own version of Open RSC, disabled features can be enabled in the config.
+                              </p><br />
                         
                 </article>
         </div>
