@@ -28,6 +28,10 @@
                         <p class="question">How do I run my own copy?</p>
                         <p class="answer">Visit the <a href="https://github.com/Marwolf/Open-RSC-Docker">Open-RSC-Docker</a> repo and follow the instructions. Windows / Mac / Linux compatible!</p><br />
                         
+                        <p class="question">From what period is Open RSC based on traditional RSC?</p>
+                        <p class="answer">We believe the final version of traditional RSC is best to begin with but choose to disable some features<br />
+                              added over time that we consider either annoying or pointless.</p><br />
+                        
                 </article>
         </div>
 </div>
